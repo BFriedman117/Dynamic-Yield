@@ -36,6 +36,12 @@
 .iframe {
   margin: 10px;
   height: 200px;
+  width: 300px;
+  resize: both;
+}
+
+.iframe-body {
+  margin: 0px auto;
 }
 
 .iframe-top {
@@ -47,7 +53,26 @@
   background-color: rgb(0, 216, 255);
 }
 
+.iframe-bottom {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 #message {
-  height: 70%;
+  height: 60%;
   overflow: scroll;
+  padding: 5px;
+}
+
+.message-row {
+  padding: 5px 0px;
+  width: 80%;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+#chat-input {
+  width: 80%;
 }

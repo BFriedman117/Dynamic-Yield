@@ -2,18 +2,18 @@
   <html>
     <head>
       <meta charset="UTF-8" />
-      <title>Eye Frame</title>
+      <title>Chat Box</title>
       <link rel="stylesheet" href="./styles.css" />
       <script src="./iframes.js"></script>
     </head>
-    <body onload="initialize(window.name)">
+    <body class="iframe-body" onload="initialize(window.name)">
       <div id="iframe-main">
         <div class="iframe-top">
           <div id="iframe-id"></div>
           <button onclick="remove(window.name)">X</button>
         </div>
         <div id="message"></div>
-        <div class="input-row">
+        <div class="iframe-bottom">
           <input id="chat-input" type="text" />
           <button id="chat-submit" onclick="send(window.name)">Send</button>
         </div>
