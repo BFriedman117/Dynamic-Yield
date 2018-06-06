@@ -14,14 +14,14 @@ function initialize(){
 }
 
 function addFrame(){
-  let node = document.createElement("iframe")
+  let iframe = document.createElement("iframe")
   let name = "iFrame-" + frames.num
   let newFrameMessage = "System: " + name + " has joined the chat"
-  node.src = "./iframe.html"
-  node.name = name
-  node.id = name
-  node.className = "iframe"
-  main.appendChild(node)
+  iframe.src = "./iframe.html"
+  iframe.name = name
+  iframe.id = name
+  iframe.className = "iframe"
+  main.appendChild(iframe)
   update(newFrameMessage)
   frames.num++
 }
