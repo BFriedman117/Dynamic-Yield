@@ -14,19 +14,6 @@ function initialize(){
 }
 
 function addFrame(){
-  let box = document.createElement("div")
-  box.className = "iframe"
-  box.onmousedown = function(e){
-    document.onmousemove = function(e){
-      box.style.position = "absolute"
-      box.style.top = e.clientY + "px"
-      box.style.left = e.clientX + "px"
-    }
-    document.onmouseup = function(){
-      document.onmousemove = null
-      document.onmouseup = null
-    }
-  }
   let iframe = document.createElement("iframe")
   let name = "iFrame-" + frames.num
   let newFrameMessage = "System: " + name + " has joined the chat"
@@ -34,8 +21,7 @@ function addFrame(){
   iframe.name = name
   iframe.id = name
   iframe.className = "iframe"
-  box.appendChild(iframe)
-  main.appendChild(box)
+  main.appendChild(iframe)
   update(newFrameMessage)
   frames.num++
 }
@@ -68,9 +54,6 @@ function reciever(ev){
     case "REMOVE_FRAME":
       removeFrame(action.iframe)
       break
-    // case "MOVE_FRAME":
-    //   moveFrame(action.top, action.left, action.id)
-    //   break
     default:
       return
   }
