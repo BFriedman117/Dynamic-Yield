@@ -7,15 +7,15 @@
       <script src="./iframes.js"></script>
     </head>
     <body class="iframe-body" onload="initialize(window.name)">
-      <div id="iframe-main">
-        <div class="iframe-top">
+      <div class="iframe-main">
+        <div class="iframe-top" id="iframe-top">
           <div id="iframe-id"></div>
-          <button onclick="remove(window.name)">X</button>
+          <button id="iframe-close" onclick="remove(window.name)">X</button>
         </div>
         <div id="message"></div>
         <div class="iframe-bottom">
           <input id="chat-input" type="text" />
-          <button id="chat-submit" onclick="send(window.name)">Send</button>
+          <button id="chat-submit" onclick="send(window.name)">SEND</button>
         </div>
     </body>
   </html>

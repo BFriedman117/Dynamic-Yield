@@ -3,6 +3,7 @@
 
 const NEW_MESSAGE = 'NEW_MESSAGE'
 const REMOVE_FRAME = 'REMOVE_FRAME'
+const MOVE_FRAME = 'MOVE_FRAME'
 
 const newMessage = function(message){
   return {
@@ -15,6 +16,15 @@ const removeFrame = function(iframe){
   return {
     type: REMOVE_FRAME,
     iframe
+  }
+}
+
+const moveFrame = function(top, left, id){
+  return {
+    type: MOVE_FRAME,
+    top,
+    left,
+    id
   }
 }
 
@@ -40,7 +50,7 @@ function initialize(iframe){
 
 //Submit Input
 
-function keyUp(ev, iframe){
+function keyUp(ev, id){
   ev.preventDefault();
 
   if (ev.keycode === 13){
@@ -48,17 +58,17 @@ function keyUp(ev, iframe){
   }
 }
 
-function send(iframe){
+function send(id){
   let input = document.getElementById("chat-input")
-  let message = iframe + ": " + input.value
+  let message = id + ": " + input.value
   window.parent.postMessage(newMessage(message), "*")
   input.value = ""
 }
 
 //Close Chat Window / Leave Chat
 
-function remove(iframe){
-  window.parent.postMessage(removeFrame(iframe), "*")
+function remove(id){
+  window.parent.postMessage(removeFrame(id), "*")
 }
 
 //Recieve Updates from Parent

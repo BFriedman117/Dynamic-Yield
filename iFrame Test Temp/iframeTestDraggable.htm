@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>+</title>
+<style type="text/css">
+.drag {
+	background-color: blue;
+	color: white;
+	width: 300px;
+	height: 20px;
+}
+.dragWindow {
+  position:absolute;
+  width: 300px;
+  height: 200px;
+  border: 1px black solid;
+  margin:auto;
+  text-align: center;
+}
+
+.iframe {
+	width:300px;
+	height:180px;
+}
+</style>
+<script type="text/javascript">
+var frames = [];
+var chat = "";
+
+function createMovableIFrame(url) {
+  var w = document.createElement("div");
+  w.className = "dragWindow";
+  var dragBar = document.createElement("div");
+  dragBar.className = "drag";
+  dragBar.innerHTML = " IFrame "+(frames.length+1);
+  dragBar.onmousedown = function(e) {
+    document.onmousemove = function(e) {
+      w.style.top = e.clientY+"px";
+      w.style.left = e.clientX+"px";
+    }
+    document.onmouseup = function() {
+      document.onmousemove=null;
+      document.onmouseup = null;
+    }
+  };
+  var b = document.createElement("button");
+  b.innerHTML = 'X';
+  b.style.float='right';
+  b.onclick = function() {closeWindow(w);}; // closure
+  dragBar.appendChild(b);
+  w.appendChild(dragBar);
+  var frm = document.createElement("iframe");
+  frm.src = "chatter.html";
+  frm.className = "iframe";
+  w.appendChild(frm);
+  document.body.appendChild(w);
+}
+
+function closeWindow(w) {
+  document.body.removeChild(w);
+}
+
+function addWindow() {
+  frames.push(createMovableIFrame("chatter.html"));
+}
+
+function update(ev) {
+  var i;
+  for (i=0; i < frames.length; i++) {
+    if (ev.source == frames[i].contentWindow) break;
+  }
+  lastchat = "iframe"+(i+1)+": "+ ev.data+"<br/>";
+  chat += lastchat;
+  for (var i = 0; i < frames.length; i++) {
+     frames[i].contentWindow.postMessage(lastchat, "*");
+  }
+}
+
+function initialize() {
+  if (!window.addEventListener) {
+    window.attachEvent("onmessage", update, false);
+  }
+  else {
+    window.addEventListener("onmessage", update, false);
+    window.addEventListener("message", update, false);
+  }
+}
+
+</script>
+</head>
+
+<body onload="initialize()">
+<button onclick="addWindow()">+</button>
+</body>
+
+</html>

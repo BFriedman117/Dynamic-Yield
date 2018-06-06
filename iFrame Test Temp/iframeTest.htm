@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>+</title>
+<script type="text/javascript">
+var frames = [];
+var chat = "";
+
+function addIframe() {
+  var frm;
+  frames.push(frm = document.createElement("iframe"));
+  frm.src = "chatter.html";
+  frm.style.background = "pink";
+  document.body.appendChild(frm);
+  
+}
+
+function update(ev) {
+  var i;
+  for (i=0; i < frames.length; i++) {
+    if (ev.source == frames[i].contentWindow) break;
+  }
+  lastchat = "iframe"+(i+1)+": "+ ev.data+"<br/>";
+  chat += lastchat;
+  for (var i = 0; i < frames.length; i++) {
+     frames[i].contentWindow.postMessage(lastchat, "*");
+  }
+}
+
+function initialize() {
+  if (!window.addEventListener) {
+    window.attachEvent("onmessage", update, false);
+  }
+  else {
+    window.addEventListener("onmessage", update, false);
+    window.addEventListener("message", update, false);
+  }
+}
+
+</script>
+</head>
+
+<body onload="initialize()">
+<button onclick="addIframe()">+</button>
+</body>
+
+</html>
